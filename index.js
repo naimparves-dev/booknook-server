@@ -27,6 +27,12 @@ const borrowsCollection = db.collection("borrows")
 app.post('/borrows', async (req, res) => {
     const borrowsData = req.body
     const result = await borrowsCollection.insertOne(borrowsData)
+    if (borrowsData.bookId) {
+        await booksCollection.updateOne(
+            { _id: new ObjectId(borrowsData.bookId) },
+            { $inc: { totalCopies: -1 } }
+        )
+    }
     res.send(result)
     console.log("object");
 })
