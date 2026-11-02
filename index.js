@@ -30,8 +30,9 @@ app.post('/borrows', async(req,res)=>{
     res.send(result)
     console.log("object");
 })
-app.get('/borrows',async(req,res)=>{
-    const result=await borrowsCollection.find({}.toArray())
+app.get('/borrows', async (req, res) => {
+    const query = req.query.email ? { userEmail: req.query.email } : {}
+    const result = await borrowsCollection.find(query).toArray()
     res.send(result)
 })
 app.post('/books',async(req,res)=>{
