@@ -72,6 +72,11 @@ app.post('/books', async (req, res) => {
     res.send(result)
     console.log("object");
 })
+app.delete('/books/:id', async (req, res) => {
+    const id = req.params.id
+    const result = await booksCollection.deleteOne({ _id: new ObjectId(id) })
+    res.send(result)
+})
 
 app.get('/books', async (req, res) => {
     const result = await booksCollection.find({}).toArray()
