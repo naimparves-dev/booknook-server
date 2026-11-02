@@ -24,6 +24,12 @@ const db = connectClient.db("book-nook")
 const booksCollection = db.collection("books")
 const borrowsCollection = db.collection("borrows")
 
+app.get('/my-books', async (req, res) => {
+    const query = req.query.email ? { userEmail: req.query.email } : {}
+    const result = await booksCollection.find(query).toArray()
+    res.send(result)
+})
+
 app.post('/borrows', async (req, res) => {
     const borrowsData = req.body
     const result = await borrowsCollection.insertOne(borrowsData)
