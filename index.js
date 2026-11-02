@@ -30,7 +30,10 @@ app.post('/borrows', async(req,res)=>{
     res.send(result)
     console.log("object");
 })
-
+app.get('/borrows',async(req,res)=>{
+    const result=await borrowsCollection.find({}.toArray())
+    res.send(result)
+})
 app.post('/books',async(req,res)=>{
     const booksData=req.body
     const result=await booksCollection.insertOne(booksData)
